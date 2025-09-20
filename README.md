@@ -1,7 +1,9 @@
 # SlideBook
+
 Slide 3d Book for HCM
 
 ## Features
+
 - 3D Interactive Book with React Three Fiber
 - Mobile Responsive Design
 - Audio Page Flip Effects
@@ -9,6 +11,7 @@ Slide 3d Book for HCM
 - Touch-friendly Navigation
 
 ## Tech Stack
+
 - React 18
 - React Three Fiber
 - Three.js
@@ -16,10 +19,12 @@ Slide 3d Book for HCM
 - Vite
 
 ## Installation
+
 ```bash
 npm install
 npm run dev
 ```
 
 ## Deploy
+
 Deploy to Vercel for production use.

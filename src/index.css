@@ -156,3 +156,15 @@ body {
 .outline-text {
   -webkit-text-stroke: 1px white;
 }
+
+/* Ẩn thanh cuộn nhưng vẫn có thể cuộn */
+.scrollbar-hide {
+  /* Firefox */
+  scrollbar-width: none;
+  /* Safari and Chrome */
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
