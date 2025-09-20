@@ -128,67 +128,82 @@ const PageContent = ({ pageNumber, isOpen }) => {
   const hasNextSection = currentSection < sections.length - 1;
   const hasPrevSection = currentSection > 0;
 
+  // Debug
+  console.log("Debug mobile content:", {
+    content,
+    sections,
+    currentSection,
+    currentContent,
+    hasNextSection,
+    hasPrevSection,
+  });
+
   // Mobile layout: content ở dưới màn hình
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 h-[50vh] bg-gradient-to-t from-black/90 to-black/50 backdrop-blur-sm z-50 pointer-events-none flex flex-col p-4 transform transition-transform duration-500 ease-in-out">
-        <div className="text-white max-w-full pointer-events-auto w-full text-left flex-1 flex flex-col">
-          <h2 className="text-2xl font-bold mb-4 break-words">
-            {content.title}
-          </h2>
-          <p className="text-base leading-relaxed break-words whitespace-pre-line flex-1">
-            {currentContent.content}
-          </p>
-
-          {/* Nút chuyển đổi phần */}
-          {sections.length > 1 && (
-            <div className="flex justify-between items-center mt-4 gap-2 relative z-60">
-              <button
-                className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 pointer-events-auto cursor-pointer relative z-70 ${
-                  hasPrevSection
-                    ? "bg-white/20 text-white hover:bg-white/30"
-                    : "bg-gray-500/20 text-gray-400 cursor-not-allowed"
-                }`}
-                onClick={() => {
-                  console.log("Previous button clicked", {
-                    hasPrevSection,
-                    currentSection,
-                  });
-                  if (hasPrevSection) {
-                    setCurrentSection(currentSection - 1);
-                  }
-                }}
-                disabled={!hasPrevSection}
-              >
-                ← Phần trước
-              </button>
-
-              <span className="text-sm text-white/70">
-                {currentSection + 1}/{sections.length}
-              </span>
-
-              <button
-                className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 pointer-events-auto cursor-pointer relative z-70 ${
-                  hasNextSection
-                    ? "bg-white/20 text-white hover:bg-white/30"
-                    : "bg-gray-500/20 text-gray-400 cursor-not-allowed"
-                }`}
-                onClick={() => {
-                  console.log("Next button clicked", {
-                    hasNextSection,
-                    currentSection,
-                  });
-                  if (hasNextSection) {
-                    setCurrentSection(currentSection + 1);
-                  }
-                }}
-                disabled={!hasNextSection}
-              >
-                Phần sau →
-              </button>
-            </div>
-          )}
+      <div className="fixed bottom-0 left-0 right-0 h-[50vh] bg-gradient-to-t from-black/90 to-black/50 backdrop-blur-sm z-50 flex flex-col">
+        {/* Scrollable content area */}
+        <div className="flex-1 overflow-y-auto scrollbar-hide mobile-scroll-container">
+          <div className="text-white p-4 pb-2 min-h-full">
+            <h2 className="text-2xl font-bold mb-4 break-words">
+              {content.title}
+            </h2>
+            <p className="text-base leading-relaxed break-words whitespace-pre-line">
+              {currentContent?.content ||
+                content.sections?.[0]?.content ||
+                "Không có nội dung"}
+            </p>
+          </div>
         </div>
+
+        {/* Fixed navigation buttons */}
+        {sections.length > 1 && (
+          <div className="flex justify-between items-center p-4 pt-2 gap-2 bg-gradient-to-t from-black/80 to-transparent">
+            <button
+              className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
+                hasPrevSection
+                  ? "bg-white/20 text-white hover:bg-white/30"
+                  : "bg-gray-500/20 text-gray-400 cursor-not-allowed"
+              }`}
+              onClick={() => {
+                console.log("Previous button clicked", {
+                  hasPrevSection,
+                  currentSection,
+                });
+                if (hasPrevSection) {
+                  setCurrentSection(currentSection - 1);
+                }
+              }}
+              disabled={!hasPrevSection}
+            >
+              ← Phần trước
+            </button>
+
+            <span className="text-sm text-white/70">
+              {currentSection + 1}/{sections.length}
+            </span>
+
+            <button
+              className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
+                hasNextSection
+                  ? "bg-white/20 text-white hover:bg-white/30"
+                  : "bg-gray-500/20 text-gray-400 cursor-not-allowed"
+              }`}
+              onClick={() => {
+                console.log("Next button clicked", {
+                  hasNextSection,
+                  currentSection,
+                });
+                if (hasNextSection) {
+                  setCurrentSection(currentSection + 1);
+                }
+              }}
+              disabled={!hasNextSection}
+            >
+              Phần sau →
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -338,7 +353,7 @@ export const UI = () => {
             <option value="3">Hình nền 3</option>
           </select>
         </div>
-        <div className="w-full overflow-x-auto pointer-events-auto flex justify-center">
+        <div className="w-full overflow-x-auto pointer-events-auto flex justify-center relative z-60 bg-gradient-to-t from-black/60 to-transparent">
           <div className="overflow-x-auto flex items-center gap-2 md:gap-4 max-w-full p-2 md:p-10">
             {[...pages].map((_, index) => (
               <button

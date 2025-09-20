@@ -168,3 +168,23 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Đảm bảo scroll hoạt động trên mobile */
+.mobile-scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  touch-action: pan-y;
+}
+
+/* Fix cho iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .mobile-scroll-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Force scroll to work */
+.mobile-scroll-container * {
+  pointer-events: auto;
+}
