@@ -1,9 +1,25 @@
-# r3f-animated-book-slider-final
+# SlideBook
+Slide 3d Book for HCM
 
-![YouTube Thumbnail](https://github.com/user-attachments/assets/c6b6ea2e-2643-4d53-89b7-ee5b848de06d)
+## Features
+- 3D Interactive Book with React Three Fiber
+- Mobile Responsive Design
+- Audio Page Flip Effects
+- Multiple Background Options
+- Touch-friendly Navigation
 
-[Video tutorial](https://youtu.be/b7a_Y1Ja6js)
+## Tech Stack
+- React 18
+- React Three Fiber
+- Three.js
+- Tailwind CSS
+- Vite
 
-[Live demo](https://r3f-animated-book-slider-final.vercel.app/)
+## Installation
+```bash
+npm install
+npm run dev
+```
 
-[Starter code](https://github.com/wass08/r3f-animated-book-slider-starter)
+## Deploy
+Deploy to Vercel for production use.
