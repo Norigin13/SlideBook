@@ -277,6 +277,8 @@ export const UI = () => {
   const [bookOpen, setBookOpen] = useAtom(bookOpenAtom);
   const [bgKey, setBgKey] = useState("1");
   const [audioEnabled, setAudioEnabled] = useState(false);
+  const [currentVideo, setCurrentVideo] = useState(null);
+  const [videoLoading, setVideoLoading] = useState(false);
 
   // Khởi tạo audio và enable sau user interaction
   useEffect(() => {
@@ -321,6 +323,43 @@ export const UI = () => {
 
   return (
     <>
+      {/* Video background */}
+      {currentVideo && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className={`fixed inset-0 w-full h-full object-cover z-[-1] transition-opacity duration-500 ${
+            videoLoading ? "opacity-0" : "opacity-100"
+          }`}
+          onLoadStart={() => {
+            console.log("Video loading:", currentVideo);
+            setVideoLoading(true);
+          }}
+          onCanPlay={() => {
+            console.log("Video can play:", currentVideo);
+            // Delay để đảm bảo video load xong
+            setTimeout(() => setVideoLoading(false), 300);
+          }}
+          onError={(e) => {
+            console.log("Video error:", e, currentVideo);
+            setVideoLoading(false);
+          }}
+        >
+          <source src={currentVideo} type="video/mp4" />
+        </video>
+      )}
+
+      {/* Loading overlay */}
+      {videoLoading && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[-1] flex items-center justify-items-center">
+          <div className="text-white text-lg">Đang tải video...</div>
+          <div className="text-red-800 text-lg">Bạn có thể về lại Lăng Bác rồi qua map khác để tải video</div>
+        </div>
+      )}
+
       <main className="pointer-events-none select-none z-10 fixed inset-0 flex justify-between flex-col overflow-x-hidden">
         <a className="pointer-events-auto mt-10 ml-10" href="">
           {/* <img
@@ -339,18 +378,35 @@ export const UI = () => {
               setBgKey(value);
               const map = {
                 1: "/textures/background.jpg",
-                2: "/textures/DSC01040.jpg",
-                3: "/textures/DSC02064.jpg",
+                2: "/textures/backgroundVD1.mp4",
+                3: "/textures/BackgroundVD2.mp4",
               };
-              document.documentElement.style.setProperty(
-                "--app-bg-image",
-                `url('${map[value]}')`
-              );
+
+              // Check if it's a video file
+              if (map[value].endsWith(".mp4")) {
+                // Set video background with loading state
+                console.log("Setting video:", map[value]);
+                setVideoLoading(true);
+                setCurrentVideo(map[value]);
+                document.documentElement.style.setProperty(
+                  "--app-bg-image",
+                  "none"
+                );
+              } else {
+                // Set image background
+                console.log("Setting image:", map[value]);
+                setVideoLoading(false);
+                setCurrentVideo(null);
+                document.documentElement.style.setProperty(
+                  "--app-bg-image",
+                  `url('${map[value]}')`
+                );
+              }
             }}
           >
-            <option value="1">Hình nền 1</option>
-            <option value="2">Hình nền 2</option>
-            <option value="3">Hình nền 3</option>
+            <option value="1">Lăng Bác</option>
+            <option value="2">Vịnh Hạ Long</option>
+            <option value="3">Sài Gòn</option>
           </select>
         </div>
         <div className="w-full overflow-x-auto pointer-events-auto flex justify-center relative z-60 bg-gradient-to-t from-black/60 to-transparent">
