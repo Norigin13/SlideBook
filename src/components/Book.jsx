@@ -86,15 +86,23 @@ const pageMaterials = [
 ];
 
 pages.forEach((page) => {
-  useTexture.preload(`/textures/${page.front}.jpg`);
-  useTexture.preload(`/textures/${page.back}.jpg`);
+  // Hỗ trợ cả PNG và JPG
+  const frontExt = page.front.includes(".") ? "" : ".jpg";
+  const backExt = page.back.includes(".") ? "" : ".jpg";
+
+  useTexture.preload(`/textures/${page.front}${frontExt}`);
+  useTexture.preload(`/textures/${page.back}${backExt}`);
   useTexture.preload(`/textures/book-cover-roughness.jpg`);
 });
 
 const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
+  // Hỗ trợ cả PNG và JPG
+  const frontExt = front.includes(".") ? "" : ".jpg";
+  const backExt = back.includes(".") ? "" : ".jpg";
+
   const [picture, picture2, pictureRoughness] = useTexture([
-    `/textures/${front}.jpg`,
-    `/textures/${back}.jpg`,
+    `/textures/${front}${frontExt}`,
+    `/textures/${back}${backExt}`,
     ...(number === 0 || number === pages.length - 1
       ? [`/textures/book-cover-roughness.jpg`]
       : []),

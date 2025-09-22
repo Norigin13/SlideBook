@@ -2,22 +2,15 @@ import { atom, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 const pictures = [
-  "dot",
-  "DSC00933",
-  "DSC00966",
-  "DSC00983",
-  "DSC01011",
-  "DSC01040",
-  "DSC01064",
-  "DSC01071",
-  "DSC01103",
-  "DSC01145",
-  "DSC01420",
-  "DSC01461",
-  "DSC01489",
-  "DSC02031",
-  "DSC02064",
-  "DSC02069",
+  "1.png",
+  "2.png",
+  "3.png",
+  "4.png",
+  "5.png",
+  "6.png",
+  "7.png",
+  "8.png",
+
 ];
 
 export const pageAtom = atom(0);
@@ -36,7 +29,7 @@ const pageContents = {
     ],
   },
   1: {
-    title: "1. Vấn đề độc lập dân tộc",
+    title: "Độc lập, tự do là quyền thiêng liêng, bất khả xâm phạm của tất cả các dân tộc",
     sections: [
       {
         content:
@@ -45,38 +38,44 @@ const pageContents = {
 
       {
         content:
-          "Trong Chánh cương vắn tắt của Đảng (1930), Người xác định mục tiêu chính trị là đánh đổ đế quốc chủ nghĩa Pháp và bọn phong kiến và Làm cho nước Nam hoàn toàn độc lập.\n\n Trong Tuyên ngôn độc lập 1945, Hồ Chí Minh trịnh trọng tuyên bố Việt Nam có quyền hưởng tự do và độc lập, đồng thời kêu gọi toàn dân quyết tâm bảo vệ nền độc lập đó. Tư tưởng này được cụ thể hóa qua các cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ, người đã nói với đồng bào và các quốc gia trên thế giới : “Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thực đã thành một nước tự do và độc lập. Toàn thể dân Việt Nam quyết đem tất cả tinh thần và lực lượng, tính mệnh và của cải để giữ vững quyền tự do và độc lập ấy”.\n\n Trong Lời kêu gọi toàn quốc kháng chiến  19/12/1946 với những lời hiệu triệu nổi tiếng như “Không! Chúng ta thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ” và “Không có gì quý hơn độc lập, tự do”, trở thành tuyên ngôn bất hủ, khích lệ nhân dân Việt Nam anh dũng chiến đấu, bảo vệ chủ quyền, toàn vẹn lãnh thổ và quyền dân tộc cơ bản. ",
+          "Trong Chánh cương vắn tắt của Đảng (1930), Người xác định mục tiêu chính trị là đánh đổ đế quốc chủ nghĩa Pháp và bọn phong kiến và Làm cho nước Nam hoàn toàn độc lập.\n\n Trong Tuyên ngôn độc lập 1945, Hồ Chí Minh trịnh trọng tuyên bố Việt Nam có quyền hưởng tự do và độc lập, đồng thời kêu gọi toàn dân quyết tâm bảo vệ nền độc lập đó. Tư tưởng này được cụ thể hóa qua các cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ, người đã nói với đồng bào và các quốc gia trên thế giới : “Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thực đã thành một nước tự do và độc lập. Toàn thể dân Việt Nam quyết đem tất cả tinh thần và lực lượng, tính mệnh và của cải để giữ vững quyền tự do và độc lập ấy”. ",
+      },
+      {
+        content:
+          "Trong Lời kêu gọi toàn quốc kháng chiến  19/12/1946 với những lời hiệu triệu nổi tiếng như “Không! Chúng ta thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ” và “Không có gì quý hơn độc lập, tự do”, trở thành tuyên ngôn bất hủ, khích lệ nhân dân Việt Nam anh dũng chiến đấu, bảo vệ chủ quyền, toàn vẹn lãnh thổ và quyền dân tộc cơ bản.",
       },
     ],
   },
   2: {
-    title: "Độc Lập Dân Tộc",
+    title: "Độc lập dân tộc phải gắn liền với tự do, hạnh phúc của nhân dân",
     sections: [
+      
       {
         content:
-          "Độc lập dân tộc là mục tiêu thiêng liêng mà toàn thể nhân dân Việt Nam đã đấu tranh để giành lấy. Đây không chỉ là quyền tự quyết của một dân tộc mà còn là nền tảng cho sự phát triển bền vững và thịnh vượng của đất nước.",
+          " Theo Hồ Chí Minh, độc lập dân tộc phải gắn liền với tự do và hạnh phúc của nhân dân. Người đánh giá cao học thuyết Tam dân của Tôn Trung Sơn về “dân tộc độc lập, dân quyền tự do và dân sinh hạnh phúc” và khẳng định: dân tộc Việt Nam đương nhiên phải được tự do và bình đẳng về quyền lợi, đó là lẽ phải không ai chối cãi được. Trong Chánh cương vắn tắt của Đảng (1930), Hồ Chí Minh xác định mục tiêu cách mạng là làm cho nước Nam hoàn toàn độc lập, tiêu diệt mọi thứ áp bức, chia ruộng đất cho dân nghèo, bỏ sưu thuế, và bảo đảm quyền lợi lao động. ",
       },
       {
         content:
-          "Trong Tuyên ngôn độc lập 1945, Hồ Chí Minh trịnh trọng tuyên bố Việt Nam có quyền hưởng tự do và độc lập, đồng thời kêu gọi toàn dân quyết tâm bảo vệ nền độc lập đó. Tư tưởng này được cụ thể hóa qua các cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ, người đã nói với đồng bào và các quốc gia trên thế giới : “Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thực đã thành một nước tự do và độc lập. Toàn thể dân Việt Nam quyết đem tất cả tinh thần và lực lượng, tính mệnh và của cải để giữ vững quyền tự do và độc lập ấy”",
+          " Sau thắng lợi Cách mạng Tháng Tám 1945, Người nhấn mạnh: “Nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì” và yêu cầu thực hiện ngay các quyền cơ bản cho dân: có ăn, có mặc, có chỗ ở và được học hành. Suốt đời hoạt động cách mạng, Hồ Chí Minh luôn coi độc lập gắn liền với tự do và hạnh phúc cho nhân dân, bộc bạch tâm huyết: “Tôi chỉ có một sự ham muốn tột bậc là làm sao cho nước ta được hoàn toàn độc lập, dân ta được hoàn toàn tự do, đồng bào ai cũng có cơm ăn áo mặc, ai cũng được học hành.”",
       },
+  
     ],
   },
   3: {
-    title: "Tự Do và Dân Chủ",
+    title: "Độc lập dân tộc phải là nền độc lập thật sự, hoàn toàn và triệt để",
     sections: [
       {
         content:
-          "Tự do và dân chủ là những giá trị cốt lõi mà nhân dân Việt Nam luôn hướng tới. Trong một xã hội tự do, mỗi công dân đều có quyền được sống, làm việc và phát triển trong môi trường công bằng và bình đẳng.",
+          "Theo Hồ Chí Minh, độc lập dân tộc phải là nền độc lập thật sự, hoàn toàn và triệt để, không thể chỉ là độc lập giả hiệu do thực dân, đế quốc tạo ra thông qua các chính phủ bù nhìn nhằm che đậy bản chất xâm lược và bóc lột. Người nhấn mạnh rằng nền độc lập mà nhân dân không có quyền tự quyết về ngoại giao, không có quân đội riêng, không có tài chính riêng… thì độc lập đó chẳng có ý nghĩa gì. Trên tinh thần này, ngay sau Cách mạng Tháng Tám, trong bối cảnh đất nước gặp nhiều khó khăn và thù trong giặc ngoài, Hồ Chí Minh cùng Chính phủ Việt Nam Dân chủ Cộng hòa đã sử dụng nhiều biện pháp, đặc biệt là ngoại giao, để bảo đảm nền độc lập thật sự của đất nước.",
       },
     ],
   },
   4: {
-    title: "Hạnh Phúc Nhân Dân",
+    title: "Độc lập dân tộc gắn liền với thống nhất và toàn vẹn lãnh thổ",
     sections: [
       {
         content:
-          "Hạnh phúc của nhân dân là mục tiêu cao nhất của mọi chính sách và hành động. Đó là sự kết hợp hài hòa giữa phát triển kinh tế, công bằng xã hội và bảo vệ môi trường, tạo nên một cuộc sống đầy đủ và ý nghĩa cho mọi người dân.",
+          "Trong lịch sử, dân tộc Việt Nam luôn đối mặt với âm mưu xâm lược và chia cắt đất nước. Thực dân Pháp từng chia nước ta thành ba kỳ với chế độ cai trị riêng, sau Cách mạng Tháng Tám, miền Bắc bị quân Tưởng Giới Thạch chiếm đóng, miền Nam bị Pháp xâm lược, và Pháp còn đưa ra “Nam Kỳ tự trị” nhằm chia cắt đất nước. Trước thực trạng này, Hồ Chí Minh khẳng định: “Đồng bào Nam Bộ là dân nước Việt Nam. Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi”. \n\n   Sau Hiệp định Giơnevơ (1954), khi đất nước tạm thời chia cắt hai miền, Người vẫn kiên trì đấu tranh cho thống nhất, nhấn mạnh: “Nước Việt Nam là một, dân tộc Việt Nam là một”. Trong Di chúc, Hồ Chí Minh bày tỏ niềm tin tuyệt đối vào thắng lợi cách mạng, vào sự thống nhất Tổ quốc và sự sum họp của đồng bào Nam – Bắc. Có thể khẳng định rằng, tư tưởng độc lập dân tộc luôn gắn liền với thống nhất và toàn vẹn lãnh thổ là tư tưởng xuyên suốt trong cuộc đời hoạt động cách mạng của Hồ Chí Minh.",
       },
     ],
   },
@@ -356,7 +355,9 @@ export const UI = () => {
       {videoLoading && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[-1] flex items-center justify-items-center">
           <div className="text-white text-lg">Đang tải video...</div>
-          <div className="text-red-800 text-lg">Bạn có thể về lại Lăng Bác rồi qua map khác để tải video</div>
+          <div className="text-red-800 text-lg">
+            Bạn có thể về lại Lăng Bác rồi qua map khác để tải video
+          </div>
         </div>
       )}
 
@@ -405,7 +406,7 @@ export const UI = () => {
             }}
           >
             <option value="1">Lăng Bác</option>
-            <option value="2">Vịnh Hạ Long</option>
+            {/* <option value="2">Vịnh Hạ Long</option> */}
             <option value="3">Sài Gòn</option>
           </select>
         </div>
