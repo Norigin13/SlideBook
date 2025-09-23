@@ -4,15 +4,31 @@ import { useRef } from "react";
 import { Vector3 } from "three";
 import { useAtom } from "jotai";
 import { Book } from "./Book";
-import { bookOpenAtom } from "./UI";
+import { bookOpenAtom, staticViewAtom } from "./UI";
 
 export const Experience = () => {
   const [bookOpen] = useAtom(bookOpenAtom);
+  const [staticView] = useAtom(staticViewAtom);
   const controlsRef = useRef();
   const { camera } = useThree();
 
   useFrame((_, delta) => {
     const isMobile = window.innerWidth <= 768;
+
+    if (staticView) {
+      // 2D view: snap ngay vị trí/góc nhìn cố định
+      const pos = new Vector3(0, 2.0, 4.2);
+      const target = new Vector3(0, 1.0, 0);
+      camera.position.copy(pos);
+      if (controlsRef.current) {
+        controlsRef.current.target.copy(target);
+        controlsRef.current.update();
+      }
+      const targetFov = isMobile ? 45 : 38;
+      camera.fov = targetFov;
+      camera.updateProjectionMatrix();
+      return;
+    }
 
     // Mobile positioning: sách ở trên cao, giữa màn hình
     const mobileOpenPos = new Vector3(0, 2.2, 3.5);
@@ -63,12 +79,16 @@ export const Experience = () => {
   return (
     <>
       <Float
-        rotation-x={-Math.PI / 4}
-        floatIntensity={1}
-        speed={2}
-        rotationIntensity={2}
+        rotation-x={staticView ? 0 : -Math.PI / 4}
+        floatIntensity={staticView ? 0 : 1}
+        speed={staticView ? 0 : 2}
+        rotationIntensity={staticView ? 0 : 2}
         position={
-          bookOpen
+          staticView
+            ? window.innerWidth <= 768
+              ? [0, 1.8, 0]
+              : [0, 1.2, 0]
+            : bookOpen
             ? window.innerWidth <= 768
               ? [0, 1.6, 0]
               : [1, 0.6, 0]
@@ -77,11 +97,18 @@ export const Experience = () => {
       >
         <Book />
       </Float>
-      <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.08} />
+      <OrbitControls
+        ref={controlsRef}
+        enableDamping
+        dampingFactor={0.08}
+        enableRotate={!staticView}
+        enableZoom={!staticView}
+      />
       <Environment preset="studio"></Environment>
+      <ambientLight intensity={0.25} />
       <directionalLight
         position={[2, 5, 2]}
-        intensity={2.5}
+        intensity={1.2}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}

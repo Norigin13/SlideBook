@@ -17,7 +17,7 @@ import {
   Vector3,
 } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
-import { pageAtom, pages } from "./UI";
+import { pageAtom, pages, staticViewAtom } from "./UI";
 
 const easingFactor = 0.5; // Controls the speed of the easing
 const easingFactorFold = 0.3; // Controls the speed of the easing
@@ -140,7 +140,7 @@ const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
               roughnessMap: pictureRoughness,
             }
           : {
-              roughness: 0.1,
+              roughness: 0.35,
             }),
         emissive: emissiveColor,
         emissiveIntensity: 0,
@@ -153,7 +153,7 @@ const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
               roughnessMap: pictureRoughness,
             }
           : {
-              roughness: 0.1,
+              roughness: 0.35,
             }),
         emissive: emissiveColor,
         emissiveIntensity: 0,
@@ -175,7 +175,7 @@ const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
       return;
     }
 
-    const emissiveIntensity = highlighted ? 0.22 : 0;
+    const emissiveIntensity = highlighted ? 0.12 : 0;
     skinnedMeshRef.current.material[4].emissiveIntensity =
       skinnedMeshRef.current.material[5].emissiveIntensity = MathUtils.lerp(
         skinnedMeshRef.current.material[4].emissiveIntensity,
@@ -240,24 +240,34 @@ const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
   });
 
   const [_, setPage] = useAtom(pageAtom);
+  const [staticView] = useAtom(staticViewAtom);
   const [highlighted, setHighlighted] = useState(false);
-  useCursor(highlighted);
+  useCursor(staticView ? false : highlighted);
+
+  // Tắt highlight khi vào 2D
+  useEffect(() => {
+    if (staticView) setHighlighted(false);
+  }, [staticView]);
 
   return (
     <group
       {...props}
       ref={group}
       onPointerEnter={(e) => {
+        if (staticView) return;
         e.stopPropagation();
         setHighlighted(true);
       }}
       onPointerLeave={(e) => {
+        if (staticView) return;
         e.stopPropagation();
         setHighlighted(false);
       }}
       onClick={(e) => {
         e.stopPropagation();
-        setPage(opened ? number : number + 1);
+        if (!staticView) {
+          setPage(opened ? number : number + 1);
+        }
         setHighlighted(false);
       }}
     >
@@ -272,9 +282,15 @@ const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
 
 export const Book = ({ ...props }) => {
   const [page] = useAtom(pageAtom);
+  const [staticView] = useAtom(staticViewAtom);
   const [delayedPage, setDelayedPage] = useState(page);
 
   useEffect(() => {
+    if (staticView) {
+      // Snap ngay lập tức về page hiện tại (đã set sẵn ở UI khi bật 2D)
+      setDelayedPage(page);
+      return;
+    }
     let timeout;
     const goToPage = () => {
       setDelayedPage((delayedPage) => {
@@ -300,7 +316,7 @@ export const Book = ({ ...props }) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [page]);
+  }, [page, staticView]);
 
   return (
     <group {...props} rotation-y={-Math.PI / 2}>
