@@ -43,6 +43,8 @@ export const pageAtom = atom(0);
 export const bookOpenAtom = atom(false);
 export const contentSectionAtom = atom(0);
 export const staticViewAtom = atom(false);
+export const lockViewAtom = atom(false);
+export const fixedPoseAtom = atom(false);
 
 // Nội dung cho từng trang - mỗi trang có thể có nhiều phần
 const pageContents = {
@@ -65,12 +67,12 @@ const pageContents = {
       },
 
       {
-        content:
-          "Trong Chánh cương vắn tắt của Đảng (1930), Người xác định mục tiêu chính trị là đánh đổ đế quốc chủ nghĩa Pháp và bọn phong kiến và Làm cho nước Nam hoàn toàn độc lập.\n\n Trong Tuyên ngôn độc lập 1945, Hồ Chí Minh trịnh trọng tuyên bố Việt Nam có quyền hưởng tự do và độc lập, đồng thời kêu gọi toàn dân quyết tâm bảo vệ nền độc lập đó. Tư tưởng này được cụ thể hóa qua các cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ, người đã nói với đồng bào và các quốc gia trên thế giới : “Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thực đã thành một nước tự do và độc lập. Toàn thể dân Việt Nam quyết đem tất cả tinh thần và lực lượng, tính mệnh và của cải để giữ vững quyền tự do và độc lập ấy”. ",
+        content: `Trong Chánh cương vắn tắt của Đảng (1930), Người xác định mục tiêu chính trị là đánh đổ đế quốc chủ nghĩa Pháp và bọn phong kiến và Làm cho nước Nam hoàn toàn độc lập.
+
+ Trong Tuyên ngôn độc lập 1945, Hồ Chí Minh trịnh trọng tuyên bố Việt Nam có quyền hưởng tự do và độc lập, đồng thời kêu gọi toàn dân quyết tâm bảo vệ nền độc lập đó. Tư tưởng này được cụ thể hóa qua các cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ, người đã nói với đồng bào và các quốc gia trên thế giới : Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thực đã thành một nước tự do và độc lập. Toàn thể dân Việt Nam quyết đem tất cả tinh thần và lực lượng, tính mệnh và của cải để giữ vững quyền tự do và độc lập ấy. `,
       },
       {
-        content:
-          "Trong Lời kêu gọi toàn quốc kháng chiến  19/12/1946 với những lời hiệu triệu nổi tiếng như “Không! Chúng ta thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ” và “Không có gì quý hơn độc lập, tự do”, trở thành tuyên ngôn bất hủ, khích lệ nhân dân Việt Nam anh dũng chiến đấu, bảo vệ chủ quyền, toàn vẹn lãnh thổ và quyền dân tộc cơ bản.",
+        content: `Trong Lời kêu gọi toàn quốc kháng chiến  19/12/1946 với những lời hiệu triệu nổi tiếng như Khong! Chung ta tha hy sinh tat ca, chu nhat dinh khong chiu mat nuoc, nhat dinh khong chiu lam no le va Khong co gi quy hon doc lap, tu do, tro thanh tuyen ngon bat hu, kich le nhan dan Viet Nam anh dung chien dau, bao ve chu quyen, toan ven lanh tho va quyen dan toc co ban.`,
       },
     ],
   },
@@ -79,11 +81,11 @@ const pageContents = {
     sections: [
       {
         content:
-          " Theo Hồ Chí Minh, độc lập dân tộc phải gắn liền với tự do và hạnh phúc của nhân dân. Người đánh giá cao học thuyết Tam dân của Tôn Trung Sơn về “dân tộc độc lập, dân quyền tự do và dân sinh hạnh phúc” và khẳng định: dân tộc Việt Nam đương nhiên phải được tự do và bình đẳng về quyền lợi, đó là lẽ phải không ai chối cãi được. Trong Chánh cương vắn tắt của Đảng (1930), Hồ Chí Minh xác định mục tiêu cách mạng là làm cho nước Nam hoàn toàn độc lập, tiêu diệt mọi thứ áp bức, chia ruộng đất cho dân nghèo, bỏ sưu thuế, và bảo đảm quyền lợi lao động. ",
+          " Theo Hồ Chí Minh, độc lập dân tộc phải gắn liền với tự do và hạnh phúc của nhân dân. Người đánh giá cao học thuyết Tam dân của Tôn Trung Sơn về dân tộc độc lập, dân quyền tự do và dân sinh hạnh phúc và khẳng định: dân tộc Việt Nam đương nhiên phải được tự do và bình đẳng về quyền lợi, đó là lẽ phải không ai chối cãi được. Trong Chánh cương vắn tắt của Đảng (1930), Hồ Chí Minh xác định mục tiêu cách mạng là làm cho nước Nam hoàn toàn độc lập, tiêu diệt mọi thứ áp bức, chia ruộng đất cho dân nghèo, bỏ sưu thuế, và bảo đảm quyền lợi lao động. ",
       },
       {
         content:
-          " Sau thắng lợi Cách mạng Tháng Tám 1945, Người nhấn mạnh: “Nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì” và yêu cầu thực hiện ngay các quyền cơ bản cho dân: có ăn, có mặc, có chỗ ở và được học hành. Suốt đời hoạt động cách mạng, Hồ Chí Minh luôn coi độc lập gắn liền với tự do và hạnh phúc cho nhân dân, bộc bạch tâm huyết: “Tôi chỉ có một sự ham muốn tột bậc là làm sao cho nước ta được hoàn toàn độc lập, dân ta được hoàn toàn tự do, đồng bào ai cũng có cơm ăn áo mặc, ai cũng được học hành.”",
+          " Sau thắng lợi Cách mạng Tháng Tám 1945, Người nhấn mạnh: Nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì và yêu cầu thực hiện ngay các quyền cơ bản cho dân: có ăn, có mặc, có chỗ ở và được học hành. Suốt đời hoạt động cách mạng, Hồ Chí Minh luôn coi độc lập gắn liền với tự do và hạnh phúc cho nhân dân, bộc bạch tâm huyết: Tôi chỉ có một sự ham muốn tột bậc là làm sao cho nước ta được hoàn toàn độc lập, dân ta được hoàn toàn tự do, đồng bào ai cũng có cơm ăn áo mặc, ai cũng được học hành.,",
       },
     ],
   },
@@ -101,7 +103,7 @@ const pageContents = {
     sections: [
       {
         content:
-          "Trong lịch sử, dân tộc Việt Nam luôn đối mặt với âm mưu xâm lược và chia cắt đất nước. Thực dân Pháp từng chia nước ta thành ba kỳ với chế độ cai trị riêng, sau Cách mạng Tháng Tám, miền Bắc bị quân Tưởng Giới Thạch chiếm đóng, miền Nam bị Pháp xâm lược, và Pháp còn đưa ra “Nam Kỳ tự trị” nhằm chia cắt đất nước. Trước thực trạng này, Hồ Chí Minh khẳng định: “Đồng bào Nam Bộ là dân nước Việt Nam. Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi”. \n\n   Sau Hiệp định Giơnevơ (1954), khi đất nước tạm thời chia cắt hai miền, Người vẫn kiên trì đấu tranh cho thống nhất, nhấn mạnh: “Nước Việt Nam là một, dân tộc Việt Nam là một”. Trong Di chúc, Hồ Chí Minh bày tỏ niềm tin tuyệt đối vào thắng lợi cách mạng, vào sự thống nhất Tổ quốc và sự sum họp của đồng bào Nam – Bắc. Có thể khẳng định rằng, tư tưởng độc lập dân tộc luôn gắn liền với thống nhất và toàn vẹn lãnh thổ là tư tưởng xuyên suốt trong cuộc đời hoạt động cách mạng của Hồ Chí Minh.",
+          "Trong lịch sử, dân tộc Việt Nam luôn đối mặt với âm mưu xâm lược và chia cắt đất nước. Thực dân Pháp từng chia nước ta thành ba kỳ với chế độ cai trị riêng, sau Cách mạng Tháng Tám, miền Bắc bị quân Tưởng Giới Thạch chiếm đóng, miền Nam bị Pháp xâm lược, và Pháp còn đưa ra Nam Kỳ tự trị nhằm chia cắt đất nước. Trước thực trạng này, Hồ Chí Minh khẳng định: Đồng bào Nam Bộ là dân nước Việt Nam. Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi. \n\n   Sau Hiệp định Giơnevơ (1954), khi đất nước tạm thời chia cắt hai miền, Người vẫn kiên trì đấu tranh cho thống nhất, nhấn mạnh: Nước Việt Nam là một, dân tộc Việt Nam là một. Trong Di chúc, Hồ Chí Minh bày tỏ niềm tin tuyệt đối vào thắng lợi cách mạng, vào sự thống nhất Tổ quốc và sự sum họp của đồng bào Nam – Bắc. Có thể khẳng định rằng, tư tưởng độc lập dân tộc luôn gắn liền với thống nhất và toàn vẹn lãnh thổ là tư tưởng xuyên suốt trong cuộc đời hoạt động cách mạng của Hồ Chí Minh.",
       },
     ],
   },
@@ -129,7 +131,7 @@ const pageContents = {
       },
       {
         content:
-          "Trong bối cảnh Việt Nam là nước thuộc địa – phong kiến, Người cho rằng Đảng Cộng sản vừa là đội tiên phong của giai cấp công nhân, vừa là đội tiên phong của nhân dân lao động, trong sạch, tận tâm phục vụ Tổ quốc, trở thành Đảng của cả dân tộc Việt Nam. Hồ Chí Minh khẳng định: “Chính vì Đảng Lao động Việt Nam là Đảng của giai cấp công nhân và nhân dân lao động, cho nên nó phải là Đảng của dân tộc Việt Nam”, là một luận điểm quan trọng, bổ sung và phát triển lý luận Mác-xít về vai trò của đảng.",
+          "Trong bối cảnh Việt Nam là nước thuộc địa – phong kiến, Người cho rằng Đảng Cộng sản vừa là đội tiên phong của giai cấp công nhân, vừa là đội tiên phong của nhân dân lao động, trong sạch, tận tâm phục vụ Tổ quốc, trở thành Đảng của cả dân tộc Việt Nam. Hồ Chí Minh khẳng định: Chính vì Đảng Lao động Việt Nam là Đảng của giai cấp công nhân và nhân dân lao động, cho nên nó phải là Đảng của dân tộc Việt Nam, là một luận điểm quan trọng, bổ sung và phát triển lý luận Mác-xít về vai trò của đảng.",
       },
     ],
   },
@@ -139,7 +141,7 @@ const pageContents = {
     sections: [
       {
         content:
-          "Hồ Chí Minh quan niệm rằng cách mạng là sự nghiệp chung của toàn dân, dựa vào đại đoàn kết dân tộc, vì “có dân là có tất cả, được lòng dân thì được tất cả, mất lòng dân thì mất tất cả”. Người kế thừa tư tưởng Mác – Lênin, nhấn mạnh rằng quần chúng nhân dân là chủ thể sáng tạo ra lịch sử; cách mạng không phải việc của một vài người mà là của toàn dân. Theo Hồ Chí Minh, công nông là gốc cách mạng, liên minh công – nông là nền tảng, đồng thời Đảng phải tập hợp dân cày nghèo, tiểu tư sản, trí thức, trung nông, lợi dụng hoặc trung lập hóa các giai cấp khác chưa rõ mặt phần cách mạng. Khi thực dân Pháp xâm lược lần hai, Người kêu gọi mọi người Việt Nam, không phân biệt giai tầng, tôn giáo, dân tộc hay đẳng phái, đoàn kết chống kẻ thù chung. Hồ Chí Minh nhấn mạnh, công nhân và nông dân là hai giai cấp đông đảo, bị bóc lột nặng nề, nên “lòng cách mạng càng bền, chí cách mạng càng quyết; nếu họ thắng sẽ được cả thế giới, nếu thua chỉ mất một kiếp khổ”.",
+          "Hồ Chí Minh quan niệm rằng cách mạng là sự nghiệp chung của toàn dân, dựa vào đại đoàn kết dân tộc, vì có dân là có tất cả, được lòng dân thì được tất cả, mất lòng dân thì mất tất cả. Người kế thừa tư tưởng Mác – Lênin, nhấn mạnh rằng quần chúng nhân dân là chủ thể sáng tạo ra lịch sử; cách mạng không phải việc của một vài người mà là của toàn dân. Theo Hồ Chí Minh, công nông là gốc cách mạng, liên minh công – nông là nền tảng, đồng thời Đảng phải tập hợp dân cày nghèo, tiểu tư sản, trí thức, trung nông, lợi dụng hoặc trung lập hóa các giai cấp khác chưa rõ mặt phần cách mạng. Khi thực dân Pháp xâm lược lần hai, Người kêu gọi mọi người Việt Nam, không phân biệt giai tầng, tôn giáo, dân tộc hay đẳng phái, đoàn kết chống kẻ thù chung. Hồ Chí Minh nhấn mạnh, công nhân và nông dân là hai giai cấp đông đảo, bị bóc lột nặng nề, nên lòng cách mạng càng bền, chí cách mạng càng quyết; nếu họ thắng sẽ được cả thế giới, nếu thua chỉ mất một kiếp khổ.",
       },
     ],
   },
@@ -153,7 +155,7 @@ const pageContents = {
       },
       {
         content:
-          "Hồ Chí Minh lập luận rằng thuộc địa có vị trí chiến lược đặc biệt đối với chủ nghĩa đế quốc, là nơi tập trung “nọc độc và sức sống” của chủ nghĩa tư bản, và nhấn mạnh tinh thần đấu tranh cách mạng quyết liệt của các dân tộc thuộc địa, khi được tập hợp và giác ngộ sẽ hình thành một lực lượng khổng lồ, giúp tiêu diệt chủ nghĩa đế quốc, đồng thời hỗ trợ cách mạng vô sản ở chính quốc. Người viết trong Tuyên ngôn của Hội Liên hiệp thuộc địa rằng công cuộc giải phóng phải do chính dân tộc thuộc địa nỗ lực thực hiện. Thực tiễn thắng lợi cách mạng Việt Nam năm 1945 và phong trào giải phóng dân tộc thế giới những năm 1960 chứng minh luận điểm này của Hồ Chí Minh vừa sáng tạo, vừa có giá trị lý luận và thực tiễn to lớn.",
+          "Hồ Chí Minh lập luận rằng thuộc địa có vị trí chiến lược đặc biệt đối với chủ nghĩa đế quốc, là nơi tập trung nọc độc và sức sống của chủ nghĩa tư bản, và nhấn mạnh tinh thần đấu tranh cách mạng quyết liệt của các dân tộc thuộc địa, khi được tập hợp và giác ngộ sẽ hình thành một lực lượng khổng lồ, giúp tiêu diệt chủ nghĩa đế quốc, đồng thời hỗ trợ cách mạng vô sản ở chính quốc. Người viết trong Tuyên ngôn của Hội Liên hiệp thuộc địa rằng công cuộc giải phóng phải do chính dân tộc thuộc địa nỗ lực thực hiện. Thực tiễn thắng lợi cách mạng Việt Nam năm 1945 và phong trào giải phóng dân tộc thế giới những năm 1960 chứng minh luận điểm này của Hồ Chí Minh vừa sáng tạo, vừa có giá trị lý luận và thực tiễn to lớn.",
       },
     ],
   },
@@ -163,7 +165,7 @@ const pageContents = {
     sections: [
       {
         content:
-          'Hồ Chí Minh vận dụng sáng tạo quan điểm của các nhà kinh điển Mác – Ăngghen và Lênin về bạo lực cách mạng, cho rằng “bạo lực là bà đỡ của một chế độ xã hội cũ đang thai nghén một chế độ mới” và không có bạo lực cách mạng thì không thể giành chính quyền từ tay kẻ thù.\n\nTrong bộ Tư bản, quyển I, tập thứ nhất, xuất bản lần đầu tiên năm 1867, C. Mác viết: “Bạo lực là bà đỡ của một chế độ xã hội cũ đang thai nghén một chế độ mới”. Năm 1878, trong tác phẩm Chống Đuyrinh, Ph. Ăngghen nhắc lại: "Bạo lực còn đóng một vai trò khác trong lịch sử, vai trò cách mạng; nói theo Mác, bạo lực còn là bà đỡ cho mọi xã hội cũ đang thai nghén một xã hội mới; bạo lực là công cụ mà sự vận động xã hội dùng để tự mở đường cho mình và đập tan những hình thức chính trị đã hóa đá và chết cứng"',
+          'Hồ Chí Minh vận dụng sáng tạo quan điểm của các nhà kinh điển Mác – Ăngghen và Lênin về bạo lực cách mạng, cho rằng "bạo lực là bà đỡ của một chế độ xã hội cũ đang thai nghén một chế độ mới" và không có bạo lực cách mạng thì không thể giành chính quyền từ tay kẻ thù.\n\nTrong bộ Tư bản, quyển I, tập thứ nhất, xuất bản lần đầu tiên năm 1867, C. Mác viết: "Bạo lực là bà đỡ của một chế độ xã hội cũ đang thai nghén một chế độ mới". Năm 1878, trong tác phẩm Chống Đuyrinh, Ph. Ăngghen nhắc lại: "Bạo lực còn đóng một vai trò khác trong lịch sử, vai trò cách mạng; nói theo Mác, bạo lực còn là bà đỡ cho mọi xã hội cũ đang thai nghén một xã hội mới; bạo lực là công cụ mà sự vận động xã hội dùng để tự mở đường cho mình và đập tan những hình thức chính trị đã hóa đá và chết cứng"',
       },
     ],
   },
@@ -172,7 +174,7 @@ const pageContents = {
     sections: [
       {
         content:
-          "Tư tưởng Hồ Chí Minh về chủ nghĩa xã hội là kết tinh của truyền thống yêu nước, khát vọng độc lập, tự do và tinh thần nhân văn sâu sắc của dân tộc Việt Nam. Người đã tiếp thu sáng tạo chủ nghĩa Mác – Lênin, vận dụng phù hợp vào thực tiễn Việt Nam, xác định rõ chủ nghĩa xã hội là con đường duy nhất để xây dựng một xã hội “dân giàu, nước mạnh, dân chủ, công bằng, văn minh”. Đây là lý tưởng xuyên suốt trong sự nghiệp cách mạng của Hồ Chí Minh.",
+          "Tư tưởng Hồ Chí Minh về chủ nghĩa xã hội là kết tinh của truyền thống yêu nước, khát vọng độc lập, tự do và tinh thần nhân văn sâu sắc của dân tộc Việt Nam. Người đã tiếp thu sáng tạo chủ nghĩa Mác – Lênin, vận dụng phù hợp vào thực tiễn Việt Nam, xác định rõ chủ nghĩa xã hội là con đường duy nhất để xây dựng một xã hội dân giàu, nước mạnh, dân chủ, công bằng, văn minh. Đây là lý tưởng xuyên suốt trong sự nghiệp cách mạng của Hồ Chí Minh.",
       },
     ],
   },
@@ -207,7 +209,7 @@ const pageContents = {
     sections: [
       {
         content:
-          "Theo Hồ Chí Minh, động lực quan trọng nhất để xây dựng CNXH là sức mạnh của nhân dân. Đó là tinh thần dân chủ, đoàn kết, lòng yêu nước, ý chí tự lực, tự cường. Bên cạnh đó, vai trò lãnh đạo của Đảng, sự quản lý của Nhà nước và xây dựng con người mới xã hội chủ nghĩa cũng là những yếu tố quyết định thành công của sự nghiệp này. Hồ Chí Minh nhấn mạnh: “Dễ trăm lần không dân cũng chịu, khó vạn lần dân liệu cũng xong”. Sự đồng thuận, đoàn kết và phát huy sức mạnh toàn dân là điều kiện tiên quyết để xây dựng thành công CNXH.",
+          "Theo Hồ Chí Minh, động lực quan trọng nhất để xây dựng CNXH là sức mạnh của nhân dân. Đó là tinh thần dân chủ, đoàn kết, lòng yêu nước, ý chí tự lực, tự cường. Bên cạnh đó, vai trò lãnh đạo của Đảng, sự quản lý của Nhà nước và xây dựng con người mới xã hội chủ nghĩa cũng là những yếu tố quyết định thành công của sự nghiệp này. Hồ Chí Minh nhấn mạnh: De tram lan khong dan cung chiu, kho van lan dan lieu cung xong. Sự đồng thuận, đoàn kết và phát huy sức mạnh toàn dân là điều kiện tiên quyết để xây dựng thành công CNXH.",
       },
       {
         content:
@@ -471,15 +473,394 @@ const PageContent = ({ pageNumber, isOpen }) => {
   );
 };
 
-const StaticToggleButton = () => {
-  const [staticView, setStaticView] = useAtom(staticViewAtom);
+// Modal Quiz: hỗ trợ 10 câu, lưu đáp án, nộp bài, làm lại
+const QuizModal = ({ open, onClose }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [refreshToken, setRefreshToken] = useState(0);
+
+  useEffect(() => {
+    if (!open) return;
+    let aborted = false;
+    setLoading(true);
+    setError("");
+    setQuestions([]);
+    setCurrentIndex(0);
+    setSelectedAnswers([]);
+    setSubmitted(false);
+    setScore(0);
+
+    const fetchQuiz = async () => {
+      try {
+        const res = await fetch("https://hcm202-2m6i.onrender.com/quiz", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error("Không thể tải câu hỏi");
+        const data = await res.json();
+        if (!aborted) {
+          const normalizeOne = (q) => {
+            const answerLetter = (q.answer || "")
+              .toString()
+              .trim()
+              .toUpperCase();
+            const letterToIndex = { A: 0, B: 1, C: 2, D: 3 };
+            const correctIndex =
+              typeof q.correctIndex === "number"
+                ? q.correctIndex
+                : letterToIndex[answerLetter] ?? q.correct;
+            return {
+              question: q.question,
+              options: q.options || q.answers || [],
+              correctIndex,
+              explanation: q.explanation,
+            };
+          };
+
+          let list = [];
+          if (Array.isArray(data)) {
+            list = data
+              .map(normalizeOne)
+              .filter((q) => q.question && (q.options || []).length > 0);
+          } else if (data && typeof data === "object") {
+            list = [normalizeOne(data)];
+          }
+
+          // Trộn ngẫu nhiên và lấy tối đa 10 câu
+          const arr = [...list];
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+          }
+          const take = arr.slice(0, Math.min(10, arr.length));
+
+          setQuestions(take);
+          setSelectedAnswers(new Array(take.length).fill(null));
+          setLoading(false);
+        }
+      } catch (e) {
+        if (!aborted) {
+          setError(e?.message || "Lỗi không xác định");
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchQuiz();
+    return () => {
+      aborted = true;
+    };
+  }, [open, refreshToken]);
+
+  const handleSelect = (idx) => {
+    if (submitted) return;
+    setSelectedAnswers((prev) => {
+      const copy = [...prev];
+      copy[currentIndex] = idx;
+      return copy;
+    });
+  };
+
+  const handleSubmit = () => {
+    if (submitted || questions.length === 0) return;
+    let s = 0;
+    for (let i = 0; i < questions.length; i++) {
+      if (selectedAnswers[i] === questions[i].correctIndex) s++;
+    }
+    setScore(s);
+    setSubmitted(true);
+  };
+
+  const handleRetry = () => {
+    setRefreshToken((t) => t + 1);
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative bg-white/95 text-black rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8 border border-black/10">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-xl md:text-2xl font-bold">Câu hỏi Quiz</h3>
+          <button
+            className="rounded-full w-9 h-9 flex items-center justify-center bg-black/5 hover:bg-black/10"
+            onClick={onClose}
+            aria-label="Đóng"
+          >
+            ✕
+          </button>
+        </div>
+
+        {loading && (
+          <div className="mt-6 text-gray-700">Đang tải câu hỏi...</div>
+        )}
+
+        {error && !loading && (
+          <div className="mt-6 text-red-600">
+            {error}
+            <div className="mt-3">
+              <button
+                className="px-4 py-2 rounded-lg bg-black text-white"
+                onClick={handleRetry}
+              >
+                Thử lại
+              </button>
+            </div>
+          </div>
+        )}
+
+        {!loading && !error && questions.length > 0 && (
+          <div className="mt-6">
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <div>{`Câu ${currentIndex + 1}/${questions.length}`}</div>
+              {submitted && (
+                <div className="font-medium">{`Điểm: ${score}/${questions.length}`}</div>
+              )}
+            </div>
+
+            <div className="mt-2 text-lg md:text-xl font-semibold leading-relaxed">
+              {questions[currentIndex].question || "Câu hỏi"}
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3">
+              {(questions[currentIndex].options || []).map((opt, idx) => {
+                const isSelected = selectedAnswers[currentIndex] === idx;
+                let stateClass = "";
+                if (submitted) {
+                  const isCorrect =
+                    idx === questions[currentIndex].correctIndex;
+                  stateClass = isCorrect
+                    ? "border-green-700 bg-green-200 text-green-900"
+                    : isSelected
+                    ? "border-red-700 bg-red-200 text-red-900"
+                    : "";
+                }
+                return (
+                  <button
+                    key={idx}
+                    className={`text-left px-4 py-3 rounded-xl border transition-all ${
+                      isSelected && !submitted
+                        ? "border-black bg-black/5"
+                        : "border-black/10 bg-white"
+                    } ${stateClass}`}
+                    onClick={() => handleSelect(idx)}
+                  >
+                    {typeof opt === "string" ? opt : JSON.stringify(opt)}
+                  </button>
+                );
+              })}
+            </div>
+
+            {submitted && questions[currentIndex].explanation && (
+              <div className="mt-4 p-3 rounded-lg bg-black/5 text-sm text-gray-800">
+                Giải thích: {questions[currentIndex].explanation}
+              </div>
+            )}
+
+            <div className="mt-6 flex items-center justify-between gap-3">
+              <button
+                className="px-4 py-2 rounded-lg border border-black/10 bg-white disabled:opacity-50"
+                disabled={currentIndex === 0}
+                onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+              >
+                ← Trước
+              </button>
+              <div className="flex items-center gap-2">
+                {!submitted ? (
+                  <button
+                    className="px-4 py-2 rounded-lg bg-black text-white disabled:opacity-50"
+                    disabled={
+                      !(
+                        currentIndex === questions.length - 1 &&
+                        selectedAnswers.every((v) => v !== null)
+                      )
+                    }
+                    onClick={handleSubmit}
+                  >
+                    Nộp bài
+                  </button>
+                ) : (
+                  <button
+                    className="px-4 py-2 rounded-lg bg-black text-white"
+                    onClick={handleRetry}
+                  >
+                    Làm lại
+                  </button>
+                )}
+                <button
+                  className="px-4 py-2 rounded-lg border border-black/10 bg-white disabled:opacity-50"
+                  disabled={currentIndex >= questions.length - 1}
+                  onClick={() =>
+                    setCurrentIndex((i) =>
+                      Math.min(questions.length - 1, i + 1)
+                    )
+                  }
+                >
+                  Sau →
+                </button>
+              </div>
+            </div>
+
+            {!submitted && (
+              <div className="mt-2 text-xs text-gray-600">
+                Chỉ được nộp khi ở câu cuối và đã trả lời đủ 10 câu.
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Chat Modal: hỏi đáp qua API POST /chat
+const ChatModal = ({ open, onClose }) => {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        try {
+          inputRef.current && inputRef.current.focus();
+        } catch {}
+      }, 50);
+    } else {
+      setQuestion("");
+      setAnswer("");
+      setError("");
+      setLoading(false);
+    }
+  }, [open]);
+
+  const handleAsk = async () => {
+    if (!question.trim()) return;
+    setLoading(true);
+    setError("");
+    setAnswer("");
+    try {
+      const res = await fetch("https://hcm202-2m6i.onrender.com/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ question: question.trim() }),
+      });
+      if (!res.ok) throw new Error("Không thể gửi câu hỏi");
+      const data = await res.json();
+      setAnswer((data && (data.answer || data.message || data.result)) || "");
+    } catch (e) {
+      setError(e?.message || "Lỗi không xác định");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative bg-white/95 text-black rounded-2xl shadow-2xl max-w-xl w-full p-6 md:p-8 border border-black/10">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-xl md:text-2xl font-bold">Chatbot</h3>
+          <button
+            className="rounded-full w-9 h-9 flex items-center justify-center bg-black/5 hover:bg-black/10"
+            onClick={onClose}
+            aria-label="Đóng"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="mt-4">
+          <label className="block text-sm text-gray-700 mb-2">
+            Nhập câu hỏi
+          </label>
+          <div className="flex gap-2">
+            <input
+              ref={inputRef}
+              className="flex-1 px-3 py-2 rounded-lg border border-black/10 bg-white"
+              placeholder="Ví dụ: phan dau tien cua giao trinh la"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleAsk();
+              }}
+            />
+            <button
+              className="px-4 py-2 rounded-lg bg-black text-white disabled:opacity-50"
+              disabled={loading || !question.trim()}
+              onClick={handleAsk}
+            >
+              {loading ? "Đang gửi..." : "Hỏi"}
+            </button>
+          </div>
+        </div>
+
+        {error && <div className="mt-4 text-red-600 text-sm">{error}</div>}
+
+        {answer && (
+          <div className="mt-4 p-3 rounded-lg bg-black/5 text-sm text-gray-900 whitespace-pre-line">
+            {answer}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Nút bật/tắt chế độ Cố định: pose/camera mặc định, cho phép xoay/zoom
+const FixedPoseToggle = () => {
+  const [fixedPose, setFixedPose] = useAtom(fixedPoseAtom);
   return (
     <button
-      className="bg-white/90 text-black px-5 py-4 md:px-5 md:py-4 rounded-full hover:bg-white transition-all duration-300 text-sm md:text-base min-h-[44px] min-w-[44px] flex items-center justify-center"
-      onClick={() => setStaticView(!staticView)}
-      title="Bật/Tắt chế độ 2D (Pause hiệu ứng)"
+      className={`px-3 py-2 md:px-5 md:py-3 rounded-full transition-all duration-300 text-xs md:text-base min-h-[36px] md:min-h-[40px] min-w-[36px] md:min-w-[44px] flex items-center justify-center shadow-md border border-black/10 ${
+        fixedPose
+          ? "bg-black text-white hover:bg-black/90"
+          : "bg-white/90 text-black hover:bg-white"
+      }`}
+      onClick={() => setFixedPose(!fixedPose)}
+      title={fixedPose ? "Thoát cố định" : "Cố định"}
+      aria-pressed={fixedPose}
     >
-      {staticView ? "Chế độ 3D" : "Di chuyển/Đứng im"}
+      {/* Icon mobile */}
+      <svg
+        className="h-4 w-4 md:hidden"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M12 2c.552 0 1 .448 1 1v6.586l2.293-2.293a1 1 0 111.414 1.414L12 13l-4.707-4.293a1 1 0 111.414-1.414L11 9.586V3c0-.552.448-1 1-1z" />
+        <path d="M5 21a1 1 0 010-2h14a1 1 0 010 2H5z" />
+      </svg>
+      {/* Text desktop */}
+      <span className="hidden md:inline">
+        {fixedPose ? "Thoát cố định" : "Cố định"}
+      </span>
     </button>
   );
 };
@@ -487,11 +868,13 @@ const StaticToggleButton = () => {
 export const UI = () => {
   const [page, setPage] = useAtom(pageAtom);
   const [bookOpen, setBookOpen] = useAtom(bookOpenAtom);
-  const [staticView] = useAtom(staticViewAtom);
   const [bgKey, setBgKey] = useState("1");
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [currentVideo, setCurrentVideo] = useState(null);
   const [videoLoading, setVideoLoading] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const pageBarRef = useRef(null);
 
   // Khởi tạo audio và enable sau user interaction
   useEffect(() => {
@@ -562,22 +945,34 @@ export const UI = () => {
 
   // Tự động mở sách khi click vào trang
   const handlePageClick = (pageNumber) => {
-    if (staticView) return; // chặn đổi trang ở chế độ 2D cố định
     setPage(pageNumber);
     setBookOpen(true);
   };
 
-  // Khi bật chế độ 2D: ép về một trạng thái cố định (mở giữa sách)
+  // Auto-scroll nút trang đang chọn vào giữa vùng nhìn
   useEffect(() => {
-    if (staticView) {
-      const middlePage = Math.floor(pages.length / 2);
-      setPage(middlePage);
-      setBookOpen(true);
+    const container = pageBarRef.current;
+    if (!container) return;
+    const btn = container.querySelector(`[data-page="${page}"]`);
+    if (btn && typeof btn.scrollIntoView === "function") {
+      btn.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
     }
-  }, [staticView, setPage, setBookOpen]);
+  }, [page]);
 
   return (
     <>
+      {/* Quiz Modal */}
+      {quizOpen && (
+        <QuizModal open={quizOpen} onClose={() => setQuizOpen(false)} />
+      )}
+      {/* Chat Modal */}
+      {chatOpen && (
+        <ChatModal open={chatOpen} onClose={() => setChatOpen(false)} />
+      )}
       {/* Video background */}
       {currentVideo && (
         <video
@@ -666,10 +1061,51 @@ export const UI = () => {
             <option value="3">Sài Gòn</option>
           </select>
         </div>
-        <div className="pointer-events-auto fixed top-6 right-6 z-30">
-          <StaticToggleButton />
+        {/* Nhóm nút Quiz/Chat/Cố định - Desktop (cạnh dropdown) */}
+        <div
+          className="pointer-events-auto fixed top-6 z-30 hidden md:flex items-center gap-2"
+          style={{ left: "50%", transform: "translateX(calc(-50% + 220px))" }}
+        >
+          <button
+            className="bg-white/90 text-black px-4 py-2 md:px-5 md:py-3 rounded-full hover:bg-white transition-all duration-300 text-sm md:text-base min-h-[40px] min-w-[44px] flex items-center justify-center shadow-md border border-black/10"
+            onClick={() => setQuizOpen(true)}
+            title="Mở câu hỏi Quiz"
+          >
+            Quiz
+          </button>
+          <button
+            className="bg-white/90 text-black px-4 py-2 md:px-5 md:py-3 rounded-full hover:bg-white transition-all duration-300 text-sm md:text-base min-h-[40px] min-w-[44px] flex items-center justify-center shadow-md border border-black/10"
+            onClick={() => setChatOpen(true)}
+            title="Mở Chatbot"
+          >
+            Chat
+          </button>
+          {/* Nút Cố định pose */}
+          <FixedPoseToggle />
         </div>
-        <div className="w-full overflow-x-auto pointer-events-auto flex justify-center relative z-60 bg-gradient-to-t from-black/60 to-transparent">
+
+        {/* Nhóm nút Quiz/Chat/Cố định - Mobile (góc phải trên) */}
+        <div className="pointer-events-auto fixed top-14 left-1/2 -translate-x-1/2 z-30 flex md:hidden items-center gap-2">
+          <button
+            className="bg-white/90 text-black px-3 py-2 rounded-full hover:bg-white transition-all duration-300 text-xs min-h-[36px] min-w-[36px] flex items-center justify-center shadow-md border border-black/10"
+            onClick={() => setQuizOpen(true)}
+            title="Quiz"
+          >
+            Quiz
+          </button>
+          <button
+            className="bg-white/90 text-black px-3 py-2 rounded-full hover:bg-white transition-all duration-300 text-xs min-h-[36px] min-w-[36px] flex items-center justify-center shadow-md border border-black/10"
+            onClick={() => setChatOpen(true)}
+            title="Chat"
+          >
+            Chat
+          </button>
+          <FixedPoseToggle />
+        </div>
+        <div
+          ref={pageBarRef}
+          className="w-full overflow-x-auto pointer-events-auto flex justify-center relative z-60 bg-gradient-to-t from-black/60 to-transparent"
+        >
           <div className="overflow-x-auto flex items-center gap-2 md:gap-4 max-w-full p-2 md:p-10">
             {[...pages].map((_, index) => (
               <button
@@ -684,6 +1120,7 @@ export const UI = () => {
                   hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 active:scale-[0.98]
                   focus:outline-none focus:ring-2 focus:ring-white/40`}
                 onClick={() => handlePageClick(index)}
+                data-page={index}
               >
                 {index === 0 ? "Mặt trước" : `Trang ${index}`}
               </button>
@@ -699,6 +1136,7 @@ export const UI = () => {
                 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 active:scale-[0.98]
                 focus:outline-none focus:ring-2 focus:ring-white/40`}
               onClick={() => handlePageClick(pages.length)}
+              data-page={pages.length}
             >
               Mặt sau
             </button>

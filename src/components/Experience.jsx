@@ -4,18 +4,20 @@ import { useRef } from "react";
 import { Vector3 } from "three";
 import { useAtom } from "jotai";
 import { Book } from "./Book";
-import { bookOpenAtom, staticViewAtom } from "./UI";
+import { bookOpenAtom, staticViewAtom, fixedPoseAtom } from "./UI";
 
 export const Experience = () => {
   const [bookOpen] = useAtom(bookOpenAtom);
   const [staticView] = useAtom(staticViewAtom);
   const controlsRef = useRef();
+  const [fixedPose] = useAtom(fixedPoseAtom);
+  const bookGroupRef = useRef();
   const { camera } = useThree();
 
   useFrame((_, delta) => {
     const isMobile = window.innerWidth <= 768;
 
-    if (staticView) {
+    if (staticView || fixedPose) {
       // 2D view: snap ngay vị trí/góc nhìn cố định
       const pos = new Vector3(0, 2.0, 4.2);
       const target = new Vector3(0, 1.0, 0);
@@ -23,6 +25,12 @@ export const Experience = () => {
       if (controlsRef.current) {
         controlsRef.current.target.copy(target);
         controlsRef.current.update();
+      }
+      // Reset góc/độ nghiêng của sách về mặc định khi bật cố định
+      if (bookGroupRef.current) {
+        bookGroupRef.current.position.set(0, 0, 0);
+        bookGroupRef.current.rotation.set(0, 0, 0);
+        bookGroupRef.current.updateMatrixWorld();
       }
       const targetFov = isMobile ? 45 : 38;
       camera.fov = targetFov;
@@ -78,31 +86,43 @@ export const Experience = () => {
 
   return (
     <>
-      <Float
-        rotation-x={staticView ? 0 : -Math.PI / 4}
-        floatIntensity={staticView ? 0 : 1}
-        speed={staticView ? 0 : 2}
-        rotationIntensity={staticView ? 0 : 2}
-        position={
-          staticView
-            ? window.innerWidth <= 768
-              ? [0, 1.8, 0]
-              : [0, 1.2, 0]
-            : bookOpen
-            ? window.innerWidth <= 768
-              ? [0, 1.6, 0]
-              : [1, 0.6, 0]
-            : [0, 0, 0]
-        }
-      >
-        <Book />
-      </Float>
+      <group ref={bookGroupRef}>
+        <Float
+          key={fixedPose ? "fixed" : "anim"}
+          rotation-x={staticView || fixedPose ? 0 : -Math.PI / 4}
+          floatIntensity={staticView || fixedPose ? 0 : 1}
+          speed={staticView || fixedPose ? 0 : 2}
+          rotationIntensity={staticView || fixedPose ? 0 : 2}
+          position={
+            staticView || fixedPose
+              ? window.innerWidth <= 768
+                ? [0, bookOpen ? 1.6 : 1.2, 0]
+                : [0, 1.2, 0]
+              : bookOpen
+              ? window.innerWidth <= 768
+                ? [0, 1.8, 0]
+                : [1, 0.6, 0]
+              : window.innerWidth <= 768
+              ? [0, -0.2, 0]
+              : [0, 0, 0]
+          }
+        >
+          <Book
+            scale={
+              typeof window !== "undefined" && window.innerWidth <= 768
+                ? 0.8
+                : 1
+            }
+          />
+        </Float>
+      </group>
       <OrbitControls
         ref={controlsRef}
         enableDamping
         dampingFactor={0.08}
         enableRotate={!staticView}
         enableZoom={!staticView}
+        enablePan
       />
       <Environment preset="studio"></Environment>
       <ambientLight intensity={0.25} />
