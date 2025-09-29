@@ -20,7 +20,23 @@ const pictures = [
   "16.png",
   "17.png",
   "18.png",
+  "19.png",
+  "20.png",
+  "21.png",
+  "22.png",
+  "23.png",
+  "24.png",
+  "25.png",
+  "26.png",
+  "27.png",
+  "28.png",
+  "29.png",
+  "30.png",
+  "31.png",
+  "32.png",
+  "33.png",
 
+  "34.png",
 ];
 
 export const pageAtom = atom(0);
@@ -151,6 +167,116 @@ const pageContents = {
       },
     ],
   },
+  10: {
+    title: "Mở đầu – Ngọn đuốc soi đường",
+    sections: [
+      {
+        content:
+          "Tư tưởng Hồ Chí Minh về chủ nghĩa xã hội là kết tinh của truyền thống yêu nước, khát vọng độc lập, tự do và tinh thần nhân văn sâu sắc của dân tộc Việt Nam. Người đã tiếp thu sáng tạo chủ nghĩa Mác – Lênin, vận dụng phù hợp vào thực tiễn Việt Nam, xác định rõ chủ nghĩa xã hội là con đường duy nhất để xây dựng một xã hội “dân giàu, nước mạnh, dân chủ, công bằng, văn minh”. Đây là lý tưởng xuyên suốt trong sự nghiệp cách mạng của Hồ Chí Minh.",
+      },
+
+    ],
+  },
+  11: {
+    title: "CNXH – Xã hội vì con người",
+    sections: [
+      {
+        content:
+          "Theo Hồ Chí Minh, mục tiêu cao nhất của chủ nghĩa xã hội là vì con người, vì hạnh phúc của nhân dân. Chủ nghĩa xã hội phải đảm bảo cho mọi người có cơm ăn, áo mặc, được học hành, không còn cảnh áp bức, bất công, bóc lột. Xã hội chủ nghĩa là nơi mỗi người dân đều được phát huy hết khả năng, sống trong tự do, bình đẳng, đoàn kết và nhân ái.",
+      },
+      {
+        content:
+          "Việt Nam lựa chọn con đường tiến lên CNXH là kết quả của cả một quá trình nhận thức và đấu tranh lâu dài, phù hợp với khát vọng độc lập, tự do, hạnh phúc của dân tộc. Sau khi giành được độc lập dân tộc, Hồ Chí Minh xác định rõ rằng chỉ có CNXH mới đảm bảo sự phát triển bền vững, lâu dài cho đất nước, đảm bảo bình đẳng, bác ái và tự do thực sự cho nhân dân. Đây là con đường tất yếu không chỉ xuất phát từ xu thế thời đại mà còn đáp ứng nguyện vọng của toàn dân tộc Việt Nam. Dưới ánh sáng của tư tưởng Hồ Chí Minh, Việt Nam từng bước xây dựng nền tảng vật chất, chính trị, văn hóa – xã hội để tiến lên CNXH, dù còn nhiều khó khăn, thử thách nhưng vẫn kiên định với mục tiêu, lý tưởng đã lựa chọn.",
+      },
+    ],
+  },
+  12: {
+    title: "Đặc trưng của xã hội CNXH",
+    sections: [
+      {
+        content:
+          "Hồ Chí Minh đã chỉ rõ những đặc điểm nổi bật, mang tính bản chất của xã hội chủ nghĩa. Về chính trị, đó là một xã hội do nhân dân làm chủ, dưới sự lãnh đạo của Đảng Cộng sản. Về kinh tế, chủ nghĩa xã hội nhấn mạnh vai trò công hữu về tư liệu sản xuất, phát triển kinh tế hiện đại, đảm bảo phân phối công bằng và hợp lý. Về văn hóa – đạo đức, xã hội chủ nghĩa đề cao các giá trị bình đẳng, nhân văn, tôn trọng con người và phát huy tối đa tiềm năng sáng tạo của mỗi cá nhân. Chủ nghĩa xã hội còn gắn liền với mục tiêu xây dựng một xã hội đoàn kết, dân chủ, công bằng và văn minh, trong đó mọi người đều có cơ hội phát triển và cống hiến cho đất nước. Những đặc trưng này tạo nên sức hấp dẫn và sức sống lâu bền của chủ nghĩa xã hội trong tư tưởng Hồ Chí Minh.",
+      },
+      {
+        content:
+          "Mục tiêu lớn nhất của chủ nghĩa xã hội ở Việt Nam là bảo đảm độc lập, tự do, hạnh phúc cho nhân dân. Theo Hồ Chí Minh, xây dựng chủ nghĩa xã hội không chỉ là phát triển kinh tế mà còn phải đi đôi với việc mở rộng dân chủ về chính trị, nâng cao trình độ văn hóa, đảm bảo công bằng xã hội. Cụ thể, mục tiêu của chủ nghĩa xã hội là xây dựng một xã hội dân chủ, công bằng, văn minh, trong đó mọi người đều có việc làm, thu nhập ổn định, được học tập, chăm sóc sức khỏe, được sống trong môi trường an toàn, lành mạnh. Hồ Chí Minh nhấn mạnh rằng, chỉ khi nào người dân thực sự hạnh phúc, tự do thì chủ nghĩa xã hội mới có ý nghĩa trọn vẹn.",
+      },
+    ],
+  },
+  13: {
+    title: "Động lực của CNXH",
+    sections: [
+      {
+        content:
+          "Theo Hồ Chí Minh, động lực quan trọng nhất để xây dựng CNXH là sức mạnh của nhân dân. Đó là tinh thần dân chủ, đoàn kết, lòng yêu nước, ý chí tự lực, tự cường. Bên cạnh đó, vai trò lãnh đạo của Đảng, sự quản lý của Nhà nước và xây dựng con người mới xã hội chủ nghĩa cũng là những yếu tố quyết định thành công của sự nghiệp này. Hồ Chí Minh nhấn mạnh: “Dễ trăm lần không dân cũng chịu, khó vạn lần dân liệu cũng xong”. Sự đồng thuận, đoàn kết và phát huy sức mạnh toàn dân là điều kiện tiên quyết để xây dựng thành công CNXH.",
+      },
+      {
+        content:
+          "Việt Nam đi lên CNXH từ một nước nông nghiệp lạc hậu, do đó phải trải qua thời kỳ quá độ lâu dài và nhiều khó khăn. Thời kỳ này vừa phải cải tạo những tàn dư của xã hội cũ, vừa xây dựng các yếu tố mới phù hợp với CNXH. Hồ Chí Minh khẳng định, đây là quá trình phức tạp, đòi hỏi sự kiên trì, sáng tạo và quyết tâm cao của toàn dân tộc. Trong thời kỳ quá độ, cần kết hợp cải tạo xã hội cũ với xây dựng xã hội mới, phát triển kinh tế, nâng cao dân trí, xây dựng hệ thống chính trị vững mạnh, đồng thời giữ vững độc lập dân tộc và chủ quyền quốc gia.",
+      },
+    ],
+  },
+  14: {
+    title: "Nguyên tắc xây dựng CNXH",
+    sections: [
+      {
+        content:
+          "Hồ Chí Minh chỉ rõ một số nguyên tắc cơ bản khi xây dựng CNXH ở Việt Nam, gồm: kiên định chủ nghĩa Mác – Lênin, giữ vững độc lập dân tộc, đoàn kết và học hỏi kinh nghiệm quốc tế nhưng phải sáng tạo phù hợp với điều kiện thực tiễn nước ta; kết hợp xây dựng với đấu tranh, phát huy sức mạnh toàn dân. Đặc biệt, phải đảm bảo vai trò lãnh đạo của Đảng Cộng sản, củng cố khối đại đoàn kết toàn dân, lấy liên minh công – nông – trí thức làm nền tảng, đồng thời gắn bó chặt chẽ với phong trào cách mạng thế giới để tạo nên sức mạnh tổng hợp cho sự nghiệp xây dựng CNXH.",
+      },
+      {
+        content:
+          "Hồ Chí Minh luôn nhấn mạnh mối quan hệ chặt chẽ giữa độc lập dân tộc và CNXH. Độc lập dân tộc là tiền đề để xây dựng CNXH; ngược lại, CNXH là nền tảng vững chắc để bảo vệ và phát huy thành quả của độc lập dân tộc. Hai mục tiêu này không thể tách rời mà phải song hành trong sự nghiệp phát triển đất nước. Theo Hồ Chí Minh, chỉ có CNXH mới bảo đảm cho độc lập dân tộc được vững chắc, lâu dài, đồng thời tạo điều kiện để phát triển toàn diện đất nước trên mọi lĩnh vực.",
+      },
+    ],
+  },
+  15: {
+    title: "Vận dụng hôm nay – Kiên định, sáng tạo",
+    sections: [
+      {
+        content:
+          "Ngày nay, tư tưởng Hồ Chí Minh về CNXH tiếp tục là nền tảng tư tưởng, kim chỉ nam cho công cuộc đổi mới và phát triển đất nước. Thế hệ trẻ có nhiệm vụ giữ vững lý tưởng, phát huy tinh thần đổi mới, sáng tạo, hội nhập quốc tế nhưng vẫn giữ vững bản sắc và tự chủ, góp phần xây dựng một Việt Nam giàu mạnh, dân chủ, công bằng, văn minh. Việc vận dụng tư tưởng Hồ Chí Minh đòi hỏi phải kiên định mục tiêu độc lập dân tộc gắn liền với CNXH, đồng thời linh hoạt, sáng tạo trong giải quyết các vấn đề thực tiễn, không ngừng đổi mới tư duy, phát huy sức mạnh toàn dân tộc và tranh thủ thời cơ của thời đại để đưa đất nước phát triển nhanh, bền vững.",
+      },
+    ],
+  },
+  16: {
+    title: "Mối Quan Hệ Độc Lập Dân Tộc Và Chủ Nghĩa Xã Hội",
+    sections: [
+      {
+        content:
+          "1.Độc lập dân tộc là cơ sở, tiền đề để tiến lên chủ nghĩa xã hội\nHồ Chính khẳng định phương hướng chiến lược của cách mạng nước ta là: giải phóng dân tộc, giành độc lập dân tộc sẽ là mục tiêu đầu tiên của cách mạng, là cơ sở, tiền đề của mục tiêu tiếp theo - chủ nghĩa xã hội và chủ nghĩa cộng sản.\n- Độc lập dân tộc là tiền đề để xây dựng CNXH\n- CNXH là cơ sở bảo vệ thành quả của cách mạng giải phóng dân tộc",
+      },
+      {
+        content:
+          "2.CNXH là cơ sở bảo vệ thành quả của cách mạng giải phóng dân tộc \n+ Chủ nghĩa xã hội là xu thế tất yếu của thời và phù hợp với lợi ích của nhân dân Việt Nam\n+ Chủ nghĩa xã hội, theo Hồ Chí Minh, còn là một xã hội tốt đẹp, không còn chế độ áp bức bóc lột.\n+ Chủ nghĩa xã hội bảo vệ thành quả cách mạng giải phóng dân tộc.\n=> Như vậy, theo Hồ Chí Minh, xây dựng chủ nghĩa xã hội là xây dựng cơ sở cho phát triển của đất nước trên tất cả các lĩnh vực\n+ Quan điểm của CN - Mác - Lê Nin: Đây là hai giai đoạn của một quá trình cách mạng không ngừng.\n+ Quan điểm của Hồ Chí Minh: \n- Cách mạng giải phóng dân tộc là tiền đề để tiến hành cách mạng XHCN.\n- Cách mạng XHCN là cơ sở để bảo vệ thành quả cách mạng giải phóng dân tộc,\n+ Quan điểm của Hồ Chí Minh: \n- Cách mạng giải phóng dân tộc là tiền đề để tiến hành cách mạng XHCN.	\n- Cách mạng XHCN là cơ sở để bảo vệ thành quả cách mạng giải phóng dân tộc",
+      },
+      {
+        content:
+          "3.Điều kiện bảo đảm độc lập dân tộc gắn liền với chủ nghĩa xã hội \n+ Một là, phải đảm bảo vai trò lãnh đạo tuyệt đối của đảng cộng sản trong suốt tiến trình cách mạng\n-Vấn đề mang tính nguyên tắc\n-Nguyên tắc mang tính định hướng xây dựng CNXH\n-Đảm bảo nguyên tắc này để tránh chệch hướng XHCN hiện nay\n+ Hai là, phải củng cố và tăng cường khối cường khối đại đoàn kết dân tộc mà nền tảng là khối liên minh công - nông - trí:\n-Vấn đề có ý nghĩa chiến lược\n-Quyết định thành công của cách mạng\n+Ba là, phải đoàn kết, gắn bó chặt chẽ với cách mạng thế giới:-\nTạo nên sức mạnh tổng hợp\n-Để góp phần chung cho nền hòa bình, độc lập, dân chủ và chủ nghĩa xã hội trên thế giới",
+      },
+      
+    ],
+  },
+  17: {
+    title: "Vận Dụng Trong Giai Đoạn Hiện Nay",
+    sections: [
+      {
+        content:
+          "Kiên định mục tiêu và con đường cách mạng mà Hồ Chí Minh đã xác định:\n\nTiến tới chủ nghĩa xã hội và chủ nghĩa cộng sản là quá trình hợp quy luật, phù hợp với khát vọng của nhân dân Việt Nam, là sự lựa chọn đúng đắn của Hồ Chí Minh và sự khẳng định của Đảng Cộng sản Việt Nam.\n\nTrong Cương Lĩnh của Đảng từ thực tiễn phong phú của cách mạng Việt Nam, Đảng đã rút ra những bài học quan trọng và đầu tiên là phải \"nắm vững ngọn cờ độc lập dân tộc và chủ nghĩa xã hội - ngọn cờ quang vinh mà Chủ tịch Hồ Chí Minh đã trao lại cho thế hệ hôm nay và các thế hệ mai sau\".",
+      },
+      {
+        content:
+          "Phát huy sức mạnh dân chủ xã hội chủ nghĩa:\n\nPhát huy sức mạnh dân chủ xã hội chủ nghĩa là phát huy sức mạnh bản chất ưu việt của chế độ xã hộc chủ nghĩa.\n\nPhát huy sức mạnh dân chủ xã hội chủ nghĩa không tách rời quá trình hoàn thiện hệ thống pháp luật, tôn trọng, bảo đảm, bảo vệ quyền con người, quyền và nghĩa vụ công dân theo tinh thần của Hiến pháp hiện hành.\n\nPhát huy sức mạnh dân chủ xã hội chủ nghĩa đi đôi với cường pháp chế, đề cao trách nhiệm công dân và đạo đức xã hội.",
+      },
+      {
+        content:
+          "Củng cố, kiện toàn, phát huy sức mạnh và hiệu quả hoạt động của toàn bộ hệ thống chính trị:\n\nĐặc điểm của hệ thống chính trị ở Việt Nam là tính nhất nguyên và tính thống nhất: Nhất nguyên về chính trị, về tổ chức, về tư tưởng; thống nhất dưới sự lãnh đạo của Đảng Cộng sản Việt Nam, thống nhất Nhân dân thực hiện quyền làm chủ thông qua hoạt động của Nhà nước, của cả hệ thống chính trị và cách thức dân chủ trực tiếp, dân chủ đại diện.",
+      },
+      {
+        content:
+          "Đấu tranh chống những biểu hiện suy thoái về tư tưởng, chính trị, đạo đức, lối sống và \"tự diễn biến\", \"tự chuyển hóa\" trong nội bộ:\n\nChỉ trong một thời gian ngắn so với lịch sử của Đảng, tình trạng suy thoái về tư tưởng chính trị, đạo đức, lối sống của một bộ phận không nhỏ cán bộ, đảng viên đã xuất hiện và ngày càng nghiêm trọng.\n\nVận dụng tư tưởng Hồ Chí Minh về độc lập dân tộc và chủ nghĩa xã hội trong giai đoạn hiện nay là phải tích cực thực hiện, thực hiện có hiệu quả các nghị quyết của Đảng trong đó các nghị quyết về xây dựng Đảng giữ vị trí cực kỳ quan trọng vì xây dựng Đảng là nhiệm vụ then chốt trong sự nghiệp đổi mới.",
+      },
+    ],
+  },
 };
 
 export const pages = [
@@ -170,9 +296,6 @@ pages.push({
   front: pictures[pictures.length - 1],
   back: "Chủ Tịch Hồ Chí Minh",
 });
-
-// Bổ sung thêm trang để có thể lật tới các nội dung Trang 5,6,7,8,10
-// Tái sử dụng các ảnh 1-4 làm placeholder cho đủ số trang
 
 // Component hiển thị nội dung trang
 const PageContent = ({ pageNumber, isOpen }) => {
@@ -374,7 +497,7 @@ const StaticToggleButton = () => {
   const [staticView, setStaticView] = useAtom(staticViewAtom);
   return (
     <button
-      className="bg-white/90 text-black px-3 py-2 md:px-4 md:py-2 rounded-full hover:bg-white transition-all duration-300 text-sm md:text-base min-h-[44px] min-w-[44px] flex items-center justify-center"
+      className="bg-white/90 text-black px-5 py-4 md:px-5 md:py-4 rounded-full hover:bg-white transition-all duration-300 text-sm md:text-base min-h-[44px] min-w-[44px] flex items-center justify-center"
       onClick={() => setStaticView(!staticView)}
       title="Bật/Tắt chế độ 2D (Pause hiệu ứng)"
     >
