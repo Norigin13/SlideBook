@@ -729,7 +729,7 @@ const QuizModal = ({ open, onClose }) => {
   );
 };
 
-// Chat Modal: hỏi đáp qua API POST /chat
+// Chat Modal: hỏi đáp qua API POST /chat với giao diện tối
 const ChatModal = ({ open, onClose }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -784,11 +784,12 @@ const ChatModal = ({ open, onClose }) => {
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative bg-white/95 text-black rounded-2xl shadow-2xl max-w-xl w-full p-6 md:p-8 border border-black/10">
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="text-xl md:text-2xl font-bold">Chatbot</h3>
+      <div className="relative bg-gray-800 text-white rounded-2xl shadow-2xl max-w-2xl w-full h-[600px] flex flex-col border border-gray-600">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-600">
+          <h3 className="text-xl font-bold text-white">Chatbot</h3>
           <button
-            className="rounded-full w-9 h-9 flex items-center justify-center bg-black/5 hover:bg-black/10"
+            className="rounded-full w-8 h-8 flex items-center justify-center text-white hover:bg-gray-700 transition-colors"
             onClick={onClose}
             aria-label="Đóng"
           >
@@ -796,15 +797,77 @@ const ChatModal = ({ open, onClose }) => {
           </button>
         </div>
 
-        <div className="mt-4">
-          <label className="block text-sm text-gray-700 mb-2">
-            Nhập câu hỏi
-          </label>
+        {/* Chat Area */}
+        <div className="flex-1 flex flex-col p-4">
+          {/* Welcome Message */}
+          <div className="mb-4">
+            <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
+              <p className="text-white text-sm">
+                Xin chào! Tôi là AI chatbot về môn học tư tưởng Hồ Chí Minh, tôi
+                có thể giúp gì cho bạn?
+              </p>
+            </div>
+          </div>
+
+          {/* User Message */}
+          {question && (
+            <div className="mb-4 flex justify-end">
+              <div className="bg-blue-600 rounded-lg p-4 max-w-[80%]">
+                <p className="text-white text-sm">{question}</p>
+              </div>
+            </div>
+          )}
+
+          {/* AI Response */}
+          {answer && (
+            <div className="mb-4">
+              <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
+                <p className="text-white text-sm whitespace-pre-line">
+                  {answer}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Loading */}
+          {loading && (
+            <div className="mb-4">
+              <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
+                <div className="flex items-center space-x-2">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                  </div>
+                  <span className="text-gray-300 text-sm">Đang trả lời...</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Error */}
+          {error && (
+            <div className="mb-4">
+              <div className="bg-red-700 rounded-lg p-4 max-w-[80%]">
+                <p className="text-white text-sm">{error}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Input Area */}
+        <div className="p-4 border-t border-gray-600">
           <div className="flex gap-2">
             <input
               ref={inputRef}
-              className="flex-1 px-3 py-2 rounded-lg border border-black/10 bg-white"
-              placeholder="Ví dụ: phan dau tien cua giao trinh la"
+              className="flex-1 px-4 py-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:border-blue-500 focus:outline-none"
+              placeholder="Nhập tin nhắn..."
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               onKeyDown={(e) => {
@@ -812,22 +875,14 @@ const ChatModal = ({ open, onClose }) => {
               }}
             />
             <button
-              className="px-4 py-2 rounded-lg bg-black text-white disabled:opacity-50"
+              className="px-6 py-3 rounded-lg bg-gray-700 text-white hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-600"
               disabled={loading || !question.trim()}
               onClick={handleAsk}
             >
-              {loading ? "Đang gửi..." : "Hỏi"}
+              {loading ? "Đang gửi..." : "Gửi"}
             </button>
           </div>
         </div>
-
-        {error && <div className="mt-4 text-red-600 text-sm">{error}</div>}
-
-        {answer && (
-          <div className="mt-4 p-3 rounded-lg bg-black/5 text-sm text-gray-900 whitespace-pre-line">
-            {answer}
-          </div>
-        )}
       </div>
     </div>
   );
