@@ -732,10 +732,20 @@ const QuizModal = ({ open, onClose }) => {
 // Chat Modal: hỏi đáp qua API POST /chat với giao diện tối
 const ChatModal = ({ open, onClose }) => {
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [chatHistory, setChatHistory] = useState(() => {
+    // Load lịch sử chat từ localStorage khi khởi tạo
+    try {
+      const saved = localStorage.getItem("hcm-chat-history");
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.log("Error loading chat history:", e);
+      return [];
+    }
+  });
   const inputRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     if (open) {
@@ -745,18 +755,49 @@ const ChatModal = ({ open, onClose }) => {
         } catch {}
       }, 50);
     } else {
+      // Reset chỉ input và error khi đóng modal, giữ lại lịch sử chat
       setQuestion("");
-      setAnswer("");
       setError("");
       setLoading(false);
     }
   }, [open]);
 
+  // Auto scroll xuống cuối chat khi có tin nhắn mới
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
+
+  // Lưu lịch sử chat vào localStorage mỗi khi có thay đổi
+  useEffect(() => {
+    try {
+      // Giới hạn tối đa 100 tin nhắn để tránh localStorage quá lớn
+      const limitedHistory = chatHistory.slice(-100);
+      localStorage.setItem("hcm-chat-history", JSON.stringify(limitedHistory));
+    } catch (e) {
+      console.log("Error saving chat history:", e);
+    }
+  }, [chatHistory]);
+
   const handleAsk = async () => {
     if (!question.trim()) return;
+
+    // Lưu câu hỏi vào lịch sử chat
+    const currentQuestion = question.trim();
+    const userMessage = {
+      type: "user",
+      content: currentQuestion,
+      timestamp: new Date().toLocaleTimeString(),
+    };
+
+    setChatHistory((prev) => [...prev, userMessage]);
+    setQuestion(""); // Xóa input ngay lập tức
+
     setLoading(true);
     setError("");
-    setAnswer("");
+
     try {
       const res = await fetch("https://hcm202-2m6i.onrender.com/chat", {
         method: "POST",
@@ -764,11 +805,20 @@ const ChatModal = ({ open, onClose }) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ question: question.trim() }),
+        body: JSON.stringify({ question: currentQuestion }),
       });
       if (!res.ok) throw new Error("Không thể gửi câu hỏi");
       const data = await res.json();
-      setAnswer((data && (data.answer || data.message || data.result)) || "");
+      const answer =
+        (data && (data.answer || data.message || data.result)) || "";
+
+      // Lưu câu trả lời vào lịch sử chat
+      const botMessage = {
+        type: "bot",
+        content: answer,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+      setChatHistory((prev) => [...prev, botMessage]);
     } catch (e) {
       setError(e?.message || "Lỗi không xác định");
     } finally {
@@ -788,77 +838,103 @@ const ChatModal = ({ open, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-600">
           <h3 className="text-xl font-bold text-white">Chatbot</h3>
-          <button
-            className="rounded-full w-8 h-8 flex items-center justify-center text-white hover:bg-gray-700 transition-colors"
-            onClick={onClose}
-            aria-label="Đóng"
-          >
-            ✕
-          </button>
+          <div className="flex items-center gap-2">
+            {chatHistory.length > 0 && (
+              <button
+                className="text-xs text-gray-300 hover:text-white px-2 py-1 rounded transition-colors"
+                onClick={() => {
+                  setChatHistory([]);
+                  localStorage.removeItem("hcm-chat-history");
+                }}
+                title="Xóa lịch sử chat"
+              >
+                Xóa chat
+              </button>
+            )}
+            <button
+              className="rounded-full w-8 h-8 flex items-center justify-center text-white hover:bg-gray-700 transition-colors"
+              onClick={onClose}
+              aria-label="Đóng"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col p-4">
-          {/* Welcome Message */}
-          <div className="mb-4">
-            <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
-              <p className="text-white text-sm">
-                Xin chào! Tôi là AI chatbot về môn học tư tưởng Hồ Chí Minh, tôi
-                có thể giúp gì cho bạn?
-              </p>
-            </div>
-          </div>
-
-          {/* User Message */}
-          {question && (
-            <div className="mb-4 flex justify-end">
-              <div className="bg-blue-600 rounded-lg p-4 max-w-[80%]">
-                <p className="text-white text-sm">{question}</p>
-              </div>
-            </div>
-          )}
-
-          {/* AI Response */}
-          {answer && (
-            <div className="mb-4">
-              <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
-                <p className="text-white text-sm whitespace-pre-line">
-                  {answer}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Loading */}
-          {loading && (
-            <div className="mb-4">
-              <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
-                <div className="flex items-center space-x-2">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
-                  </div>
-                  <span className="text-gray-300 text-sm">Đang trả lời...</span>
+        <div className="flex-1 flex flex-col p-4 overflow-hidden">
+          <div
+            ref={chatContainerRef}
+            className="flex-1 overflow-y-auto scrollbar-hide"
+          >
+            {/* Welcome Message - chỉ hiển thị khi chưa có tin nhắn nào */}
+            {chatHistory.length === 0 && (
+              <div className="mb-4">
+                <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
+                  <p className="text-white text-sm">
+                    Xin chào! Tôi là AI chatbot về môn học tư tưởng Hồ Chí Minh,
+                    tôi có thể giúp gì cho bạn?
+                  </p>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Error */}
-          {error && (
-            <div className="mb-4">
-              <div className="bg-red-700 rounded-lg p-4 max-w-[80%]">
-                <p className="text-white text-sm">{error}</p>
+            {/* Chat History */}
+            {chatHistory.map((message, index) => (
+              <div
+                key={index}
+                className={`mb-4 ${
+                  message.type === "user" ? "flex justify-end" : ""
+                }`}
+              >
+                <div
+                  className={`rounded-lg p-4 max-w-[80%] ${
+                    message.type === "user" ? "bg-blue-600" : "bg-gray-700"
+                  }`}
+                >
+                  <p className="text-white text-sm whitespace-pre-line">
+                    {message.content}
+                  </p>
+                  <p className="text-xs text-gray-300 mt-1">
+                    {message.timestamp}
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
+            ))}
+
+            {/* Loading */}
+            {loading && (
+              <div className="mb-4">
+                <div className="bg-gray-700 rounded-lg p-4 max-w-[80%]">
+                  <div className="flex items-center space-x-2">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.1s" }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.2s" }}
+                      ></div>
+                    </div>
+                    <span className="text-gray-300 text-sm">
+                      Đang trả lời...
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error */}
+            {error && (
+              <div className="mb-4">
+                <div className="bg-red-700 rounded-lg p-4 max-w-[80%]">
+                  <p className="text-white text-sm">{error}</p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Input Area */}
